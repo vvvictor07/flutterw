@@ -4,7 +4,9 @@ import 'dart:isolate';
 import 'package:path/path.dart';
 import 'package:pubspec/pubspec.dart';
 
-void main(List<String> arguments) async {
+void main(List<String> originalArguments) async {
+  List<String> arguments = [...originalArguments];
+
   final pubspec = await PubSpec.load(Directory.current);
   final gradle = 'package:flutterw_build_aar/gradle/aar.gradle';
   final uri = await Isolate.resolvePackageUri(Uri.parse(gradle));
