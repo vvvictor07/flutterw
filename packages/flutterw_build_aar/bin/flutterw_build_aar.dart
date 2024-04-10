@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:isolate';
 
+import 'package:flutterw_build_aar/src/utilities/extensions/version.dart';
 import 'package:path/path.dart';
 import 'package:pubspec/pubspec.dart';
 
@@ -21,7 +22,10 @@ void main(List<String> originalArguments) async {
   }
   final index = arguments.indexOf('--build-number');
   if (index == -1) {
-    arguments.addAll(['--build-number', pubspec.version!.canonicalizedVersion]);
+    arguments.addAll([
+      '--build-number',
+      pubspec.version!.withoutPreRelease.canonicalizedVersion
+    ]);
   } else {
     arguments.replaceRange(
         index + 1, index + 2, [pubspec.version!.canonicalizedVersion]);
