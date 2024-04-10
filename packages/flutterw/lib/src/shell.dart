@@ -9,6 +9,7 @@ Future<int> runFlutter(List<String> arguments) async {
   final process = await Process.start(
     'flutter',
     arguments,
+    runInShell: Platform.isWindows,
     mode: ProcessStartMode.inheritStdio,
   );
   final code = await process.exitCode;
@@ -40,6 +41,7 @@ Future<int> runShells(
     final process = await Process.start(
       cmds.removeAt(0),
       cmds,
+      runInShell: Platform.isWindows,
       mode: isVerbose ? ProcessStartMode.inheritStdio : ProcessStartMode.normal,
     );
     final code = await process.exitCode;

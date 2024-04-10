@@ -24,7 +24,11 @@ void main(List<String> arguments) async {
     arguments.replaceRange(
         index + 1, index + 2, [pubspec.version!.canonicalizedVersion]);
   }
-  final process = await Process.start('flutter', ['build', 'aar', ...arguments],
-      mode: ProcessStartMode.inheritStdio);
+  final process = await Process.start(
+    'flutter',
+    ['build', 'aar', ...arguments],
+    runInShell: Platform.isWindows,
+    mode: ProcessStartMode.inheritStdio,
+  );
   exitCode = await process.exitCode;
 }
